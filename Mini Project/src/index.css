@@ -1,0 +1,26 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .site {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  
+  header, footer {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: rgb(133, 242, 191);
+    width: 100vw;
+    height: 35px;
+    border: 1px solid red;
+  }
+
+content{
+    padding: 20px;
+}
