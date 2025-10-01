@@ -1,0 +1,81 @@
+#sudoku-board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  gap: 2px;
+  width: 450px;
+  height: 450px;
+  border: 2px solid #000;
+  margin: 20px auto;
+}
+
+.sudoku-cell {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.sudoku-cell input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  font-size: 24px;
+  outline: none;
+}
+
+.sudoku-cell.fixed {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.sudoku-cell.highlight {
+  background-color: #ffff99;
+}
+
+.sudoku-cell.error {
+  background-color: #ff9999;
+}
+
+#sudoku-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#sudoku-controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+#sudoku-message {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+#sudoku-timer {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+#sudoku-difficulty {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#sudoku-difficulty select {
+  padding: 5px;
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
+}
