@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        text-align: center;
+        background: blanchedalmond;
+        display: grid;
+        width: 100vw;
+        height: 100vh;
+        place-items: center;
+    }
+
+    form {
+        background-color: tomato;
+        /* margin-top: 20vh; */
+        padding: 70px;
+        /* margin-left: 50vh; */
+        width: 76vh;
+        /* padding: 80px; */
+        font-size: x-large;
+        font-style: italic;
+    }
+
+    label {
+        padding-bottom: 90px;
+    }
+
+    input {
+        margin: 20px;
+    }
+</style>
+
+<body>
+
+    <form id="tempCalc" onsubmit="calculateTemp(); return false">
+        <label for="temp">Please Enter the Temperature</label>
+        <br>
+        <input type="number" name="temp" id="temp">
+
+        <select name="temp_diff" id="temp_diff" title="tempselect">
+
+            <option value="fah">Fahrenheit</option>
+            <option value="cel">celcius</option>
+
+        </select><br>
+
+        <input type="submit" name="temp">
+        <span id="resultContainer"></span>
+
+    </form>
+    <script src="index.js"></script>
+</body>
+<!-- Js -->
+<!-- <script src="index.js"></script> -->
+
+
+</html>

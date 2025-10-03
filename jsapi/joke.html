@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+body{
+    background-color: blue;
+}
+.container {
+    width: 500px;
+    height: 250px;
+    margin: 50px;
+    outline: solid 1px black;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-55%, -60%);
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    font-family: cursive;
+
+}
+
+h3{
+    text-align: center;
+}
+
+.btnn{
+    text-align: center;
+}
+#joke{
+    text-align: center;
+    padding: auto;
+    padding-bottom: 10px;
+}
+.btn{
+    margin: 30px;
+    border-radius: 9px;
+    padding: 10px;
+    background-color: gold;
+    cursor: pointer;
+}  
+  </style>
+<body>
+    
+    <div class="container">
+        
+        <h3> 😁  Best jokes to make your day 👻  </h3>
+        <div id="joke" class="joke">
+            Awesome joke is loading...    
+        </div> 
+        <div class="btnn">
+        <button id="jokeBtn" class="btn">Next Joke</button></div>
+    </div>
+
+
+    <!-- javascript -->
+
+    
+    
+<script>
+
+    console.log("hello");
+    const jokes = document.getElementById('joke');
+    const jokeBtn = document.querySelector('#jokeBtn');
+
+    
+    
+    const generatejokes = async () => {
+        const setHeader = {
+            headers:  {
+                Accept : "application/json"
+            }
+        }
+    
+    
+    const res = await fetch('https://icanhazdadjoke.com',setHeader);
+
+    const data = await res.json();
+
+    console.log(data.joke);
+    console.log("hello world!");
+    
+    jokes.innerHTML = data.joke;
+
+    
+}
+
+jokeBtn.addEventListener('click', generatejokes);
+    generatejokes();
+    
+    
+    
+    
+    </script>
+
+    
+</body>
+</html>

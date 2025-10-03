@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body{
+        text-align: center;
+    }
+</style>
+<body>
+
+    <img id="lighbulb" onclick="changeImage()" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/93927/pic_bulboff.gif" width="200" height="360">
+     I
+    <p>Click the light bulb to turn on/off the light.</p>
+    
+    </body>
+
+
+    <!-- Javascript -->
+
+    <script>
+        function changeImage() {
+        var image = document.getElementById('lighbulb');
+        if (image.src.match("bulbon")) {
+            image.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/93927/pic_bulboff.gif";
+        } else {
+            image.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/93927/pic_bulbon.gif";
+        }
+    }
+    </script>
+
+</html>

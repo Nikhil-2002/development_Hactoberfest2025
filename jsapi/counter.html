@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="count.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar flex" >
+        <ul class="navbar flex none p-20">
+            <div class="logo flex">
+                <h4 class="p-20-right">Logo</h4>
+            </div>
+            <li class="p-20-right">Home</li>
+            <li class="p-20-right">Services</li>
+            <li class="p-20-right">Courses</li>
+            <li class="p-20-right">About Us</li>
+        </ul>
+
+        <div class="header">
+            <div class="signin">
+                Dashboard
+            </div>
+            <div class="signin">
+                SignIn
+            </div>
+        </div>
+    </div>
+
+    <div class="counter-containe">
+        <div class="counter" data-target="1000">
+            <span>Hello</span>
+
+        </div>
+        
+    </div>
+
+    <div class="counter-containe">
+        <div class="counter" data-target="2320">
+            <span>Hello</span>
+
+        </div>
+
+    </div>
+
+    <div class="counter-container">
+        <div class="counter" data-target="1300">
+            <span>Hello</span>
+
+        </div>
+    </div>
+
+
+    
+</body>
+
+<script>
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach((counter) => {
+        counter.innerHTML = 0;
+
+        const  updateCounter = () => {
+            const targetCount = +counter.getAttribute('data-target'); //+ for converting string into number
+            // console.log(targetCount);
+
+            const startingcount = Number(counter.innerHTML);
+
+            const incr = targetCount/100;
+            if (startingcount < targetCount){
+                counter.innerHTML = `${Math.round(startingcount + incr)}`;
+                setTimeout( updateCounter, 1000)
+            }
+            else{
+                counter.innerHTML = targetCount;
+            }
+        }
+
+        updateCounter();
+    })
+
+</script>
+</html>

@@ -1,0 +1,21 @@
+*{
+    padding: 0px;
+    margin: 0px;
+
+}
+
+.flex{
+    display: flex;
+}
+
+.none{
+    list-style: none;
+}
+
+.p-20{
+    padding: 20px;
+}
+
+.p-20-right{
+    padding-right: 20px;
+}

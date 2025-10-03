@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        text-align: center;
+        background-color: blue;
+    }
+    .innerDiv{
+        text-align: center;
+        padding-top: 200px;
+        font-size: 2rem;
+        text-transform: capitalize;
+        text-decoration: tomato;
+        text-overflow: clip;
+    }
+</style>
+<body>
+
+
+    
+    <div class="outerDiv">
+        <div class="innerDiv">
+            <h1 class="main-heading"> I am thermometer <span id = "temp" class="fa"></span></h1>
+            
+        </div>
+    </div>
+
+    <script>
+
+        const tempLoad = () => {
+            let temp = document.getElementById('temp');
+            temp.innerHTML = "&#xf2cb";
+        
+
+        setTimeout(() => {
+            temp.innerHTML = "&#xf2ca";
+            temp.style.color = "orangered";
+        },1000);
+
+        setTimeout(() => {
+            temp.innerHTML = "&#xf2c9";
+            // temp.style.color = "red";
+        },2000);    
+        
+        setTimeout(() => {
+            temp.innerHTML = "&#xf2c8";
+            // temp.style.color = "blue";
+        },3000);
+
+        setTimeout(() => {
+            temp.innerHTML = "&#xf2c7";
+            temp.style.color = "red";
+        },4000);
+        }
+
+        tempLoad();
+
+        setInterval(tempLoad,5000);
+    </script>
+</body>
+</html>

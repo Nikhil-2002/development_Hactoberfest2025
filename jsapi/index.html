@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    /* https://youtu.be/A_8DSKGWWYI */
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Londrina Solid', cursive;
+}
+
+.container{
+    width: 300px;
+    height: 425px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    transition: all 0.6s ease;
+}
+
+.container:hover{
+    box-shadow: rgba(255, 172, 28, 0.199) -10px 10px, rgba(255, 172, 28, 0.19) -20px 20px ;
+}
+
+.container .img{
+    height: 40%;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALYAAAB5CAMAAACjkCtXAAAAkFBMVEX/mTMSiAf/////khf/4s3K3csAfgAAAIDe3uza2uoAAHr8/P7y8vjKyuGMjL7p6fKjo8rj4+7R0eVxca5OTpoAAIirq861tdV/f7Q8PJdMTJwSEohVVaJiYqRCQpavr868vNkrK4+/v9VJSZ+WlrtnZ6IeHo2VlcNubqIgIIgvL4+OjrknJ5GFhbQ1NZJXV50aV7fSAAACZklEQVR4nO2Y6W6jMBCA2enuGnwAxuHIwVFi6rRp0vd/uzXdSCt1/w5WLc2nCBMhMV9Gk8FMkhAEQRAEQRAEQRAEQRAEQRAEQRAEEQ9PUZL8jJIEooS0Q7KVdtrkxuRNutHtN9FWHeP88emU2CDCBtrZwhjbH45KHQ97f9pn+DHQtYXjfGCZENIjRMYGzh16wtG1e1a7QoMC0NqXC+jC1azHjoKsLU5s38tMgK4gy6DSIDLZ79kJOd/I2oYNmYTC5zoHpfwBVAEyG5jBjYOrPTI+Sd/0ygJyOc8yh6L0zVBOnI2ogVC1i+faaKgUCANlNc9VCUaAqkCb+rnAjISqnfNO+qVtoWwqO8+2apr1G4DseI4ZCVNbvPIWprVGGrlLz/N8TneyWatkgpa/Yv4rMbVH9uYzOzsF1jbdMo5L11gLys3+2htqdWNq37yZT6l0Rne268oy90tqnC8c4X/TDTEUorY8HStdTWMK2e5qXWvM6Oz1kIFuJ3/heJJ4sRC1ixdm/TF1vSkb09zr+u6X0vQu9V3EshfEXoKordld/z1T7qrOrK7ZsJ49rt6ZxouFqc0/pJpysyyXS9+91573rr9clqXPW1V8fFftf9m2VzXEku0vtb33tT2a8dvX9v+dpI2hk3zp27dI+vb6lBwjfEpGuieJdAfo99ssxv12pG83sb5Lxvrm/jknuUY3J3lMperoplKRzgBXopy4fhLjfHt7SDskya8oSX5HSfIjSkg7JKQdEtIOCWmHhLRDQtohIe2QkHZISDskpB0S0g4JaYeEtENC2iEh7ZCQdkhIOySkHRLSDskfFNqVGPmFFHAAAAAASUVORK5CYII=");
+    background-size: cover;
+}
+
+.container .content{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-weight: 300;
+}
+
+.container .content h3{
+    width: 200px;
+    font-weight: 300;
+    font-size: 30px;
+    padding-bottom: 5px;
+    border-bottom: 4px solid #FFAC1C;
+}
+
+.container .content p{
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.container .content a{
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.container .content button{
+    font-family: 'Londrina Solid', cursive;
+    font-weight: 100;
+    font-size: 20px;
+    color: #FFAC1C;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffac1c26;
+    transition: 0.2s ease-in-out;
+}
+
+.container .content button:hover{
+    background-color: #ffac1c3f;
+    cursor: pointer;
+}
+
+
+</style>
+
+<body>
+
+
+    <!-- Design -->
+
+<div class="container" id="container">
+    
+</div>
+
+    
+</body>
+
+<!-- Js -->
+
+<script>
+
+    // selecting container id
+    const container = document.querySelector('#container');
+    // request the data
+    const request = new XMLHttpRequest();
+    request.open('GET',"https://restcountries.com/v3.1/name/india");
+    request.send();
+
+
+    // To get request data into your web page
+    request.addEventListener('load', function(){
+        const [data] = JSON.parse(this.responseText)
+        console.log(data.capital);
+        console.log(data.flags);
+
+        // Add Data into Html 
+        const htmldata  = `
+        <div class="img"> </img></div>
+    <div class="content">
+        <h3>${data.capital}</h3>
+        <p>${data.altSpellings}</p>
+        <a href="#">
+            <button>${data.timezones}</button>
+        </a>
+    </div>
+    
+
+        `;
+
+        container.insertAdjacentHTML("afterbegin",htmldata)
+        
+    })
+
+
+</script>
+
+
+</html>
