@@ -1,0 +1,5 @@
+[
+  { "id": 1, "description": "Coffee", "amount": -50 },
+  { "id": 2, "description": "Salary", "amount": 10000 },
+  { "id":3, "description": "Food", "amount":-300}
+]
