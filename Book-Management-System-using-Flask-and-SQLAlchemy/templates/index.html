@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>My Library</h1>
+    {%if not books%}
+    <h2>Oops! Nothing here add some books first</h2>
+    {%endif%}
+    <ul>
+        {% for book in books %}
+        <li>
+            <a class="delete-button" href="{{ url_for('delete', id=book.id) }}">Delete</a>
+            <strong>Title:</strong> {{ book.title }}
+            <strong>Author:</strong> {{ book.author }}
+            <strong>Rating:</strong> {{ book.rating }}/10
+            <a href="{{ url_for('edit', id=book.id) }}">Rating</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('add') }}">Add New Book</a>
+</body>
+</html>
