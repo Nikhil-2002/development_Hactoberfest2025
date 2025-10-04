@@ -1,6 +1,6 @@
 Rock Paper Scissors 🎮✊✋✌️
 
-A simple Python command-line game where you play Rock-Paper-Scissors against the computer with fun ASCII art visuals.
+A simple Python command-line game where you play Rock-Paper-Scissors against the computer with fun ASCII art visuals. 
 
 
 Features
