@@ -2,10 +2,11 @@
   "name": "location-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.cjs"
+    "dev": "nodemon server.cjs",
+    "start":"node server.cjs"
   },
   "keywords": [],
   "author": "",
