@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Gym Coach - Your Personal Workout Instructor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s ease;
+        }
+        
+        header {
+            background: lightblue;
+            color: black;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: white;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            background-color: #4CAF50;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            color: #4CAF50;
+            border-bottom: 2px solid #e8f5e8;
+            padding-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .chat-container {
+            border: 1px solid #e0e0e0;
+            height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+            background: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: #4CAF50 #f0f0f0;
+        }
+        
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-container::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #4CAF50;
+            border-radius: 3px;
+        }
+        
+        .message {
+            margin: 15px 0;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .user-message {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-align: left;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-message {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        select, input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        select:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        .workout-plan {
+            background: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .workout-plan p {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 3px solid #4CAF50;
+            transition: transform 0.3s ease;
+        }
+        
+        ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        ul li strong {
+            color: #4CAF50;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        img:hover {
+            transform: scale(1.02);
+        }
+        
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 15px;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+            
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+            
+            main {
+                margin: 20px;
+                padding: 15px;
+                border-radius: 8px;
+            }
+            
+            .chat-container {
+                height: 400px;
+            }
+            
+            .chat-input-container {
+                flex-direction: column;
+            }
+            
+            input[type="text"] {
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Gym Instructor</h1>
+        <p>Your 24/7 Personal Trainer Powered by AI</p>
+    </header>
+    
+    <nav>
+        <a href="#" onclick="showSection('home')">Home</a>
+        <a href="#" onclick="showSection('chat')">AI Chat</a>
+        <a href="#" onclick="showSection('generator')">Workout Generator</a>
+        <a href="#" onclick="showSection('tips')">Fitness Tips</a>
+    </nav>
+    
+    <main>
+        <section id="home" class="active">
+            <h2>Welcome to AI Gym Coach!</h2>
+            <p>Transform your fitness journey with personalized workouts, real-time advice, and motivational boosts. Whether you're a beginner or a pro, our AI tailors plans just for you.</p>
+            <!-- <div style="text-align: center; margin: 20px 0;">
+                <img src="https://via.placeholder.com/600x300?text=Gym+Workout" alt="Gym Workout Illustration" style="max-width: 100%;">
+            </div> -->
+            <p><strong>Quick Start:</strong> Use the AI Chat to describe your goals, or generate a custom workout below.</p>
+        </section>
+        
+        <section id="chat">
+            <h2>Chat with Your AI Coach</h2>
+            <div class="chat-container" id="chatLog" role="log" aria-live="polite">
+                <div class="message ai-message">
+                    <strong>AI Coach:</strong> Hi! I'm your AI Gym Coach. Tell me about your fitness goals (e.g., "I want to lose weight and build muscle") or ask for advice!
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)" aria-label="Chat input">
+                <button onclick="sendMessage()" aria-label="Send message">Send</button>
+            </div>
+        </section>
+        
+        <section id="generator">
+            <h2>Generate a Workout Plan</h2>
+            <form id="workoutForm">
+                <div class="form-group">
+                    <label for="goal">Fitness Goal:</label>
+                    <select id="goal" aria-label="Select fitness goal">
+                        <option value="weightloss">Weight Loss</option>
+                        <option value="muscle">Build Muscle</option>
+                        <option value="endurance">Endurance</option>
+                        <option value="beginner">Beginner Full Body</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="level">Experience Level:</label>
+                    <select id="level" aria-label="Select experience level">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration">Duration (minutes):</label>
+                    <input type="number" id="duration" value="30" min="15" max="90" aria-label="Workout duration">
+                </div>
+                
+                <button type="button" onclick="generateWorkout()">Generate Plan</button>
+            </form>
+            <div id="workoutOutput"></div>
+        </section>
+        
+        <section id="tips">
+            <h2>Quick Fitness Tips</h2>
+            <ul>
+                <li><strong>Stay Hydrated:</strong> Drink at least 8 glasses of water a day, more if you're active.</li>
+                <li><strong>Warm-Up Always:</strong> Spend 5-10 minutes on light cardio to prevent injuries.</li>
+                <li><strong>Rest & Recover:</strong> Muscles grow during rest—aim for 7-9 hours of sleep.</li>
+                <li><strong>Track Progress:</strong> Log your workouts to stay motivated and adjust plans.</li>
+                <li><strong>Nutrition Matters:</strong> Fuel with balanced meals: proteins, carbs, and healthy fats.</li>
+            </ul>
+        </section>
+    </main>
+
+
+    <script>
+        function showSection(sectionId) {
+            // Remove active from all sections
+            document.querySelectorAll('section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            // Add active to target
+            const targetSection = document.getElementById(sectionId);
+            targetSection.classList.add('active');
+            
+            // Scroll to top of main for better UX
+            document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
+            
+            if (sectionId === 'chat') {
+                setTimeout(() => {
+                    const chatLog = document.getElementById('chatLog');
+                    chatLog.scrollTop = chatLog.scrollHeight;
+                }, 300); // Delay for transition
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            const chatLog = document.getElementById('chatLog');
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user-message';
+            userDiv.innerHTML = `<strong>You:</strong> ${message}`;
+            chatLog.appendChild(userDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+            
+            // Clear input
+            input.value = '';
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const aiResponses = {
+                    'weight': 'For weight loss, focus on cardio and HIIT. Try 30 mins of running + strength training 3x/week.',
+                    'muscle': 'To build muscle, prioritize compound lifts like squats and deadlifts. Eat in a calorie surplus with protein.',
+                    'beginner': "Great start! We'll ease you in with bodyweight exercises like push-ups and planks.",
+                    'default': 'Awesome goal! Consistency is key. What’s your starting point—beginner or experienced?'
+                };
+                let response = 'default';
+                if (message.toLowerCase().includes('weight')) response = 'weight';
+                else if (message.toLowerCase().includes('muscle')) response = 'muscle';
+                else if (message.toLowerCase().includes('beginner')) response = 'beginner';
+                
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'message ai-message';
+                aiDiv.innerHTML = `<strong>AI Coach:</strong> ${aiResponses[response] || 'Sounds good! Let\'s build a plan. Tell me more about your routine.'}`;
+                chatLog.appendChild(aiDiv);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }, 1000);
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') sendMessage();
+        }
+        
+        function generateWorkout() {
+            const goal = document.getElementById('goal').value;
+            const level = document.getElementById('level').value;
+            const duration = document.getElementById('duration').value;
+            
+            const plans = {
+                weightloss: {
+                    beginner: ['Warm-up: 5 min walk', 'Cardio: 15 min jogging', 'Strength: 10 squats, 10 lunges', 'Cool-down: Stretch'],
+                    intermediate: ['Warm-up: 5 min jump rope', 'HIIT: 20 min intervals', 'Core: Planks & crunches', 'Cool-down: Yoga poses'],
+                    advanced: ['Warm-up: Dynamic stretches', 'Circuit: Burpees, mountain climbers', 'Weights: Kettlebell swings', 'Cool-down: Foam roll']
+                },
+                muscle: {
+                    beginner: ['Warm-up: Arm circles', 'Push-ups: 3x10', 'Rows: 3x10 (use bands)', 'Squats: 3x10'],
+                    intermediate: ['Bench press: 3x8', 'Pull-ups: 3x6', 'Deadlifts: 3x8', 'Leg press: 3x10'],
+                    advanced: ['Heavy squats: 4x6', 'Bench: 4x6', 'Overhead press: 4x8', 'Pull-ups weighted']
+                },
+                endurance: {
+                    beginner: ['Warm-up: Light jog', 'Run: 20 min steady pace', 'Bodyweight circuit: 10 min'],
+                    intermediate: ['Interval run: 25 min', 'Cycling: 15 min', 'Jump rope: 10 min'],
+                    advanced: ['Trail run: 30+ min', 'Swim: 20 min', 'Hill sprints: 10 min']
+                },
+                beginner: {
+                    beginner: ['Warm-up: March in place', 'Wall push-ups: 3x8', 'Chair squats: 3x10', 'Seated leg lifts: 3x12'],
+                    intermediate: ['Push-ups: 3x10', 'Lunges: 3x10/leg', 'Plank: 3x20s', 'Bird-dog: 3x10/side'],
+                    advanced: ['Full push-ups: 4x12', 'Pistol squats: 3x5/leg', 'Side plank: 3x30s/side']
+                }
+            };
+            
+            const selectedPlan = plans[goal][level] || plans.beginner.beginner;
+            const output = document.getElementById('workoutOutput');
+            output.innerHTML = `<h3>Your ${duration}min ${goal} Workout (${level} Level)</h3>
+                <div class="workout-plan">
+                    ${selectedPlan.map(ex => `<p>• ${ex}</p>`).join('')}
+                    <p><strong>Total Time:</strong> ~${duration} minutes. Rest 60s between sets. Track your reps!</p>
+                </div>
+                <button onclick="generateWorkout()">New Plan</button>`;
+        }
+    </script>
+</body>
+</html>
