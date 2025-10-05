@@ -1,0 +1,19 @@
+{
+  "name": "test_auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.1",
+    "ncryptor": "^1.0.7",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7"
+  }
+}
