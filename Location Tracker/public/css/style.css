@@ -1,0 +1,17 @@
+#map{
+    width: 100%;
+    height: 100%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body{
+    height: 100vh;
+    width: 100%;
+    background: #f2f2f2;
+}
