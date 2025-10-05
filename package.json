@@ -5,13 +5,16 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
+    "@tailwindcss/vite": "^4.1.14",
     "bootstrap": "^4.3.1",
+    "ejs": "^3.1.10",
     "gh-pages": "^3.2.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "tailwindcss": "^4.1.14"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,5 +50,8 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/heeba-khan/development_Hactoberfest23/issues"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
