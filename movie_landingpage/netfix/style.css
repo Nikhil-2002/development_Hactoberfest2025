@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.intro-container {
+  position: relative;
+  background: url('IN-en-20250414-TRIFECTA-perspective_0f1fb403-6efb-4223-8f10-cfd1a902f22c_large.jpg') no-repeat center center/cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* 🔥 Black overlay to dull background */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Adjust the 0.6 for more/less darkness */
+  z-index: 1;
+}
+
+/* Logo content stays on top */
+.netflix-logo {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0; /* removes unwanted flexbox spacing */
+    font-size: 4.5rem;
+    color: #e50914;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+.n-icon {
+    width: 75px;
+  height: 75px;
+  object-fit: contain;
+  margin-right: -8px; /* pull it closer if needed */
+  vertical-align: middle;
+}
+
+/* Animation */
+.etflix-text {
+  opacity: 0;
+  animation: pulse 0.5s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes pulse {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .netflix-logo {
+    font-size: 3rem;
+  }
+
+  .n-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
