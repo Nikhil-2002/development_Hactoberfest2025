@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebToons Animation</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #character {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="character"></div>
+
+  <script src="https://unpkg.com/gsap@3.9.2"></script>
+  <script>
+    // GSAP animation
+    const character = document.getElementById('character');
+
+    // Create a timeline
+    const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
+    // Define animation
+    tl.to(character, { x: 250, duration: 1, ease: 'power1.inOut' })
+      .to(character, { y: 250, duration: 1, ease: 'power1.inOut' })
+      .to(character, { x: 0, duration: 1, ease: 'power1.inOut' })
+      .to(character, { y: 0, duration: 1, ease: 'power1.inOut' });
+
+  </script>
+</body>
+</html>
