@@ -6,10 +6,6 @@
 // The cardinality of S1 and Sn are equal to 1. i.e., |S1| = |Sn| = 1.
 // We are given a multistage graph, a source and a destination, we need to find shortest path from source to destination.
 // By convention, we consider source at stage 1 and destination as last stage.
-
-import java.io.*;
-import java.util.*;
-
 class MultiStageGraph {
 
 	static int N = 8;
