@@ -1,0 +1,1 @@
+Name of the user: v | Execution time: 39.6059992313385 | Speed: 25.75367418562485
