@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Internet Speed Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Internet Speed Test</h1>
+
+    <div class="cards">
+      <div class="card">
+        <h2>Ping</h2>
+        <p id="ping">— ms</p>
+      </div>
+
+      <div class="card">
+        <h2>Download</h2>
+        <p id="download">— Mbps</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label for="url">Test file URL</label>
+      <input id="url" type="text" value="https://speed.hetzner.de/10MB.bin" />
+      <div class="options">
+        <label><input type="checkbox" id="repeat" /> Repeat (3 runs & average)</label>
+        <label><input type="checkbox" id="showBytes" /> Show bytes</label>
+      </div>
+      <button id="startBtn" class="btn">Start Test</button>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"><span id="progressText">Idle</span></div>
+    </div>
+
+    <section class="results">
+      <h3>Details</h3>
+      <ul>
+        <li>Elapsed: <strong id="elapsed">0.00</strong> s</li>
+        <li>Bytes downloaded: <strong id="bytes">0</strong></li>
+        <li>Throughput: <strong id="throughput">0</strong> Mbps</li>
+        <li id="note">Note: test accuracy depends on chosen file & network conditions.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <small>Run this page from a local web server (recommended). Replace the test file URL if you get CORS errors.</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
