@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Enchanted Forest Quest</title>
+    <!-- Google Fonts for a fantasy theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic reset and styling for the page */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars */
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Canvas styling to make it fill the screen */
+        #gameCanvas {
+            display: block;
+            background-color: #1a472a; /* Dark forest green */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Container for all UI elements */
+        .ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        /* Top section for game stats */
+        .game-stats {
+            width: 100%;
+            text-align: center;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* Bottom section for game controls */
+        .game-controls {
+            display: flex;
+            gap: 15px;
+            pointer-events: auto; /* Re-enable pointer events for buttons */
+        }
+
+        /* Styling for the control buttons */
+        .control-btn {
+            background: linear-gradient(145deg, #5a3825, #3a2215);
+            color: #ffeadb;
+            border: 2px solid #ffeadb;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.8rem, 3vw, 1.1rem);
+            cursor: pointer;
+            box-shadow: 0 0 10px #000, inset 0 0 5px rgba(255, 234, 219, 0.4);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .control-btn:hover {
+            background: linear-gradient(145deg, #6b442d, #4b2d1c);
+            transform: scale(1.05);
+        }
+
+        .control-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Modal for story messages */
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.85);
+            border: 2px solid #ffeadb;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            z-index: 3;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 0 20px #000;
+            max-width: 600px;
+        }
+
+        .modal h1 {
+            margin: 0;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: #fff;
+        }
+        .modal p {
+            margin: 0;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="ui-container">
+        <!-- Game Stats Display -->
+        <div class="game-stats">
+            <span id="itemsDisplay">Artifacts Found: 0 / 3</span>
+        </div>
+        <!-- Game Controls -->
+        <div class="game-controls">
+            <button class="control-btn" id="startPauseBtn">Start</button>
+            <button class="control-btn" id="restartBtn">Restart</button>
+        </div>
+    </div>
+    
+    <!-- Game Message Modal -->
+    <div class="modal" id="messageModal">
+        <h1 id="modalTitle"></h1>
+        <p id="modalMessage"></p>
+        <button class="control-btn" id="modalActionBtn"></button>
+    </div>
+
+
+    <script>
+        // --- DOM ELEMENTS ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const itemsDisplay = document.getElementById('itemsDisplay');
+        const startPauseBtn = document.getElementById('startPauseBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const messageModal = document.getElementById('messageModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalActionBtn = document.getElementById('modalActionBtn');
+
+        // --- GAME STATE & CONFIGURATION ---
+        let player, artifact, sprites, trees;
+        let itemsFound = 0;
+        const totalItems = 3;
+        let currentLevel = 1;
+        let isPaused = true;
+        let isGameOver = false;
+        let animationFrameId;
+
+        const keys = {
+            ArrowUp: false, w: false,
+            ArrowDown: false, s: false,
+            ArrowLeft: false, a: false,
+            ArrowRight: false, d: false,
+        };
+        
+        // --- STORY AND LEVEL CONFIGURATION ---
+        const storyConfig = [
+            { // Intro
+                title: "The Enchanted Forest",
+                message: "You are lost. A whisper on the wind tells you to find three artifacts to appease the Forest Spirit and find your way home. First, seek the Glowing Mushroom.",
+                button: "Begin Quest"
+            },
+            { // Level 1
+                artifactName: "Glowing Mushroom",
+                artifactColor: "#7dfcff",
+                spriteCount: 3,
+                spriteSpeed: 0.6,
+                foundMessage: "You found the Glowing Mushroom! Its soft light is comforting. Now, find the Moonpetal Flower.",
+                button: "Continue"
+            },
+            { // Level 2
+                artifactName: "Moonpetal Flower",
+                artifactColor: "#f0f8ff",
+                spriteCount: 5,
+                spriteSpeed: 0.9,
+                foundMessage: "You pluck the Moonpetal Flower, which shimmers with starlight. Only one artifact remains: the Whispering Stone.",
+                button: "Continue"
+            },
+            { // Level 3
+                artifactName: "Whispering Stone",
+                artifactColor: "#d3d3d3",
+                spriteCount: 7,
+                spriteSpeed: 1.2,
+                foundMessage: "You lift the Whispering Stone. Faint voices echo from it, promising a way out.",
+                button: "Finish"
+            },
+            { // Win
+                title: "The Path Home",
+                message: "With all three artifacts, the forest calms. A path of light appears before you, leading you out of the woods. You are free!",
+                button: "Play Again"
+            },
+             { // Game Over
+                title: "Lost to the Woods",
+                message: "Mischievous sprites have led you astray. You are lost in the endless woods forever...",
+                button: "Try Again"
+            }
+        ];
+
+        // --- CLASSES & OBJECTS ---
+
+        class Player {
+            constructor(x, y, radius) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.speed = 3;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffeadb'; // Traveler's lantern color
+                ctx.fill();
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#ffeadb';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            update() {
+                if (keys.ArrowUp || keys.w) this.y -= this.speed;
+                if (keys.ArrowDown || keys.s) this.y += this.speed;
+                if (keys.ArrowLeft || keys.a) this.x -= this.speed;
+                if (keys.ArrowRight || keys.d) this.x += this.speed;
+
+                // Wall collision
+                if (this.x - this.radius < 0) this.x = this.radius;
+                if (this.x + this.radius > canvas.width) this.x = canvas.width - this.radius;
+                if (this.y - this.radius < 0) this.y = this.radius;
+                if (this.y + this.radius > canvas.height) this.y = canvas.height - this.radius;
+            }
+        }
+        
+        class Artifact {
+            constructor(x, y, radius, color, name) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.name = name;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+        
+        class Sprite {
+             constructor(x, y, radius, velocity) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.velocity = velocity;
+                this.color = `rgba(138, 43, 226, ${Math.random() * 0.5 + 0.3})`;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) this.velocity.x *= -1;
+                if (this.y - this.radius <= 0 || this.y + this.radius >= canvas.height) this.velocity.y *= -1;
+            }
+        }
+
+        // --- HELPER FUNCTIONS ---
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createTrees();
+        }
+
+        function getDistance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        }
+        
+        function createTrees() {
+            trees = [];
+            for(let i=0; i<30; i++) {
+                trees.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 30 + 20,
+                    color: `rgba(0, 0, 0, ${Math.random() * 0.2 + 0.15})`
+                });
+            }
+        }
+
+        function drawBackground() {
+            ctx.fillStyle = '#1a472a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            trees.forEach(tree => {
+                ctx.beginPath();
+                ctx.arc(tree.x, tree.y, tree.radius, 0, Math.PI * 2);
+                ctx.fillStyle = tree.color;
+                ctx.fill();
+            });
+        }
+
+        // --- GAME LOGIC FUNCTIONS ---
+
+        function init() {
+            resizeCanvas();
+            itemsFound = 0;
+            currentLevel = 1;
+            isGameOver = false;
+            updateUI();
+            showStoryModal(storyConfig[0].title, storyConfig[0].message, storyConfig[0].button, startGame);
+        }
+        
+        function setupLevel(level) {
+            const config = storyConfig[level];
+            player = new Player(canvas.width / 2, canvas.height - 50, 15);
+            
+            const radius = 15;
+            const x = Math.random() * (canvas.width - radius * 4) + radius * 2;
+            const y = Math.random() * (canvas.height * 0.6) + radius * 2; // Keep it in upper part of screen
+            artifact = new Artifact(x, y, radius, config.artifactColor, config.artifactName);
+            
+            sprites = [];
+            for (let i = 0; i < config.spriteCount; i++) {
+                const r = Math.random() * 8 + 5;
+                const sx = Math.random() < 0.5 ? 0 - r : canvas.width + r;
+                const sy = Math.random() * canvas.height;
+                const angle = Math.atan2(Math.random() * canvas.height - sy, Math.random() * canvas.width - sx);
+                const velocity = {
+                    x: Math.cos(angle) * config.spriteSpeed,
+                    y: Math.sin(angle) * config.spriteSpeed,
+                };
+                sprites.push(new Sprite(sx, sy, r, velocity));
+            }
+        }
+        
+        function showStoryModal(title, message, buttonText, onButtonClick) {
+            isPaused = true;
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modalActionBtn.textContent = buttonText;
+            modalActionBtn.onclick = onButtonClick;
+            messageModal.style.display = 'flex';
+        }
+
+        function updateUI() {
+            itemsDisplay.textContent = `Artifacts Found: ${itemsFound} / ${totalItems}`;
+        }
+        
+        function levelComplete() {
+            itemsFound++;
+            updateUI();
+            
+            if (itemsFound >= totalItems) {
+                winGame();
+            } else {
+                currentLevel++;
+                const config = storyConfig[currentLevel];
+                showStoryModal(`Artifact Found!`, config.foundMessage, config.button, () => {
+                     messageModal.style.display = 'none';
+                     setupLevel(currentLevel);
+                     isPaused = false;
+                     gameLoop();
+                });
+            }
+        }
+        
+        function gameOver() {
+            isGameOver = true;
+            isPaused = true;
+            const config = storyConfig.find(s => s.title === "Lost to the Woods");
+            showStoryModal(config.title, config.message, config.button, restartGame);
+        }
+        
+        function winGame() {
+            isGameOver = true;
+            isPaused = true;
+            const config = storyConfig.find(s => s.title === "The Path Home");
+            showStoryModal(config.title, config.message, config.button, restartGame);
+        }
+
+        // --- GAME CONTROLS ---
+
+        function startGame() {
+            messageModal.style.display = 'none';
+            setupLevel(currentLevel);
+            isPaused = false;
+            startPauseBtn.textContent = 'Pause';
+            if (!animationFrameId) gameLoop();
+        }
+
+        function togglePause() {
+            if (isGameOver) return;
+            isPaused = !isPaused;
+            if (isPaused) {
+                startPauseBtn.textContent = 'Resume';
+            } else {
+                startPauseBtn.textContent = 'Pause';
+                gameLoop();
+            }
+        }
+
+        function restartGame() {
+            messageModal.style.display = 'none';
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+            startPauseBtn.textContent = 'Start';
+            init();
+        }
+
+        // --- THE MAIN GAME LOOP ---
+
+        function gameLoop() {
+            if (isPaused) {
+                cancelAnimationFrame(animationFrameId);
+                return;
+            };
+            
+            animationFrameId = requestAnimationFrame(gameLoop);
+            
+            drawBackground();
+
+            player.update();
+            player.draw();
+            
+            artifact.draw();
+            
+            sprites.forEach(sprite => {
+                sprite.update();
+                sprite.draw();
+                // Collision with player
+                if (getDistance(player.x, player.y, sprite.x, sprite.y) < player.radius + sprite.radius) {
+                    gameOver();
+                }
+            });
+            
+            // Collision with artifact
+            if (getDistance(player.x, player.y, artifact.x, artifact.y) < player.radius + artifact.radius) {
+                levelComplete();
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('keydown', (e) => { if (e.key in keys) keys[e.key.toLowerCase()] = true; });
+        window.addEventListener('keyup', (e) => { if (e.key in keys) keys[e.key.toLowerCase()] = false; });
+
+        startPauseBtn.addEventListener('click', () => {
+            if (startPauseBtn.textContent === 'Start') {
+                // This case is handled by the modal. If modal is hidden somehow, it will pause.
+                togglePause();
+            } else {
+                togglePause();
+            }
+        });
+        
+        restartBtn.addEventListener('click', restartGame);
+
+        // --- INITIALIZE GAME ---
+        init();
+    </script>
+</body>
+</html>
+
