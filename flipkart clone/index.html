@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Flipkar Clone</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for products, brands and more">
+                <button onclick="performSearch()">Search</button>
+            </div>
+            <div class="user-actions">
+                <span onclick="showLogin()">Login</span>
+                <span class="cart-icon" onclick="toggleCartModal()">
+                    Cart <span id="cartCount">0</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Fashion</a></li>
+                <li><a href="#">Home & Kitchen</a></li>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Sports</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Slider -->
+    <section class="hero">
+        <div class="slider" id="slider">
+            <div class="slide active">
+                <img src="./2.jpg" alt="Sale Banner">
+            </div>
+            <div class="slide">
+                <img src="./1.jpg" alt="Electronics Banner">
+            </div>
+            <div class="slide">
+                <img src="./3.jpg" alt="Fashion Banner">
+            </div>
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleCartModal()">&times;</span>
+            <h3>Your Cart</h3>
+            <ul id="cartItems"></ul>
+            <p>Total Items: <span id="modalCartCount">0</span></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Flipkart Clone. All rights reserved.</p>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
