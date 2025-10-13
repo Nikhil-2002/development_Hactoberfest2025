@@ -1,0 +1,150 @@
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { 
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from { 
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Apply animations */
+.note-item {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.empty-state-content {
+  animation: slideInUp 0.4s ease-out;
+}
+
+.toast.show {
+  animation: slideInUp 0.3s ease-out;
+}
+
+#newNoteBtn:hover svg {
+  animation: bounce 0.5s ease infinite;
+}
+
+.theme-toggle:hover svg {
+  animation: pulse 1s ease infinite;
+}
+
+/* Staggered animations for note list */
+.notes-list .note-item:nth-child(1) { animation-delay: 0.05s; }
+.notes-list .note-item:nth-child(2) { animation-delay: 0.1s; }
+.notes-list .note-item:nth-child(3) { animation-delay: 0.15s; }
+.notes-list .note-item:nth-child(4) { animation-delay: 0.2s; }
+.notes-list .note-item:nth-child(5) { animation-delay: 0.25s; }
+.notes-list .note-item:nth-child(6) { animation-delay: 0.3s; }
+.notes-list .note-item:nth-child(7) { animation-delay: 0.35s; }
+.notes-list .note-item:nth-child(8) { animation-delay: 0.4s; }
+.notes-list .note-item:nth-child(9) { animation-delay: 0.45s; }
+.notes-list .note-item:nth-child(10) { animation-delay: 0.5s; }
+
+/* Transition effects */
+.note-container {
+  transition: all 0.3s ease;
+}
+
+.note-item {
+  transition: all 0.2s ease;
+}
+
+input, textarea, select {
+  transition: all 0.2s ease;
+}
+
+.btn {
+  transition: all 0.2s ease;
+}
+
+/* Hover effects */
+.note-item:hover {
+  transform: translateY(-2px);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Focus effects */
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 2px var(--primary-300);
+}
+
+/* Loading indicator */
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-500);
+  animation: spin 1s linear infinite;
+}
+
+.theme-dark .loading {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary-500);
+}
+
+/* Page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
