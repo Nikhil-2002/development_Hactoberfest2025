@@ -1,0 +1,173 @@
+/* Light theme */
+.theme-light {
+  --bg-color: var(--neutral-50);
+  --bg-color-secondary: white;
+  --text-color: var(--neutral-900);
+  --text-color-secondary: var(--neutral-600);
+  --border-color: var(--neutral-200);
+  --hover-color: var(--neutral-100);
+  --active-color: var(--primary-50);
+  --input-bg: white;
+  --sidebar-bg: white;
+  --modal-bg: white;
+  --toast-bg: var(--neutral-800);
+  --toast-color: white;
+  --category-work-bg: var(--primary-100);
+  --category-work-color: var(--primary-800);
+  --category-personal-bg: var(--secondary-100);
+  --category-personal-color: var(--secondary-800);
+  --category-ideas-bg: var(--accent-100);
+  --category-ideas-color: var(--accent-800);
+  --category-projects-bg: var(--success-100);
+  --category-projects-color: var(--success-800);
+  --category-other-bg: var(--neutral-100);
+  --category-other-color: var(--neutral-800);
+}
+
+/* Dark theme */
+.theme-dark {
+  --bg-color: var(--neutral-900);
+  --bg-color-secondary: var(--neutral-800);
+  --text-color: var(--neutral-100);
+  --text-color-secondary: var(--neutral-400);
+  --border-color: var(--neutral-700);
+  --hover-color: var(--neutral-800);
+  --active-color: var(--primary-900);
+  --input-bg: var(--neutral-800);
+  --sidebar-bg: var(--neutral-800);
+  --modal-bg: var(--neutral-800);
+  --toast-bg: var(--neutral-700);
+  --toast-color: white;
+  --category-work-bg: var(--primary-900);
+  --category-work-color: var(--primary-200);
+  --category-personal-bg: var(--secondary-900);
+  --category-personal-color: var(--secondary-200);
+  --category-ideas-bg: var(--accent-900);
+  --category-ideas-color: var(--accent-200);
+  --category-projects-bg: var(--success-900);
+  --category-projects-color: var(--success-200);
+  --category-other-bg: var(--neutral-700);
+  --category-other-color: var(--neutral-200);
+}
+
+/* Apply theme variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+  border-color: var(--border-color);
+}
+
+.sidebar-actions {
+  border-color: var(--border-color);
+}
+
+input, select, textarea {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-500);
+}
+
+.note-item {
+  background-color: var(--bg-color-secondary);
+}
+
+.note-item:hover {
+  background-color: var(--hover-color);
+}
+
+.note-item.active {
+  background-color: var(--active-color);
+}
+
+.note-header, .editor-header, .preview-header {
+  border-color: var(--border-color);
+}
+
+.editor-wrapper {
+  border-color: var(--border-color);
+}
+
+.modal-content {
+  background-color: var(--modal-bg);
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-color);
+}
+
+.toast-content {
+  background-color: var(--toast-bg);
+  color: var(--toast-color);
+}
+
+.btn.secondary {
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.btn.icon-btn {
+  color: var(--text-color-secondary);
+}
+
+.btn.icon-btn:hover {
+  background-color: var(--hover-color);
+}
+
+.theme-toggle {
+  color: var(--text-color-secondary);
+}
+
+.theme-toggle:hover {
+  background-color: var(--hover-color);
+}
+
+/* Category colors */
+.note-item-category[data-category="work"] {
+  background-color: var(--category-work-bg);
+  color: var(--category-work-color);
+}
+
+.note-item-category[data-category="personal"] {
+  background-color: var(--category-personal-bg);
+  color: var(--category-personal-color);
+}
+
+.note-item-category[data-category="ideas"] {
+  background-color: var(--category-ideas-bg);
+  color: var(--category-ideas-color);
+}
+
+.note-item-category[data-category="projects"] {
+  background-color: var(--category-projects-bg);
+  color: var(--category-projects-color);
+}
+
+.note-item-category[data-category="other"] {
+  background-color: var(--category-other-bg);
+  color: var(--category-other-color);
+}
+
+/* Theme specific element visibility */
+.theme-light .moon-icon {
+  display: block;
+}
+
+.theme-light .sun-icon {
+  display: none;
+}
+
+.theme-dark .moon-icon {
+  display: none;
+}
+
+.theme-dark .sun-icon {
+  display: block;
+}
