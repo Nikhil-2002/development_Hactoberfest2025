@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Currency Converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="converter-container">
+    <h1>💱 Smart Currency Converter</h1>
+    <p class="tagline">Convert currencies instantly — offline & beautiful</p>
+
+    <div class="converter-card">
+      <div class="input-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" placeholder="Enter amount" min="0">
+      </div>
+
+      <div class="dropdowns">
+        <div class="select-group">
+          <label>From</label>
+          <select id="fromCurrency"></select>
+        </div>
+        <div class="select-group">
+          <label>To</label>
+          <select id="toCurrency"></select>
+        </div>
+      </div>
+
+      <button id="convertBtn">🔁 Convert</button>
+
+      <div id="result-box">
+        <p id="result">Enter amount to convert 💰</p>
+      </div>
+    </div>
+
+    <footer>Created with ❤️| Hacktoberfest 2025</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
