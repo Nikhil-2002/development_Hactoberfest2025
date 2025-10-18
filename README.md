@@ -3,7 +3,9 @@ New Contribution Repository--> https://github.com/Nikhil-2002/hacktoberfest2025-
 
 Our Mission: 🎉
 
-Welcome to our Development Projects Collections! Our mission is to empower code beginners on their journey to becoming open source contributors. We understand that the first pull request can be a daunting step, but we're here to make it an exciting and successful experience for you. Whether you're new to coding or just new to open source, we've got the tools, resources, and a supportive community to guide you through your first contributions. Together, we'll break down the barriers and help you take your first steps in the world of open source development. So, come join us and let's celebrate your first successful pull request! 🚀🌟
+Welcome to our Development Projects Collections! Our mission is to empower code beginners on their journey to becoming open source contributors. We understand that the first pull request can be a daunting step, but we're here to make it an exciting and successful experience for you. Whether you're new to coding or just new to open source, we've got the tools, resources, and a supportive community to guide you through your first contributions. Together, we'll break down the barriers and help you take your first steps in the world of open source development. So, come join us and let's celebrate your first successful pull request! 🚀�
+
+After going throught this project and this README , you will have a very good information about open source contribution and hacktoberfest �
 
 ![image](https://user-images.githubusercontent.com/70385488/192114009-0830321a-d227-4a4d-8411-6c03b54d7ce6.png)
 
