@@ -10,6 +10,30 @@
     <!-- Swipper css -->
     <link rel="stylesheet" href="src/swiper-bundle.min.css">
     <link rel="stylesheet" href="src/styles.css">
+    <style>
+    /* Form validation styles */
+    .subscribe__input:invalid:not(:placeholder-shown) {
+        border-color: #ff6b6b;
+    }
+    
+    .subscribe__input:valid:not(:placeholder-shown) {
+        border-color: #51cf66;
+    }
+    
+    .subscribe__error {
+        color: #ff6b6b;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: none;
+    }
+    
+    .subscribe__success {
+        color: #51cf66;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: none;
+    }
+</style>
 
     <title>CoffeeBeans</title>
 </head>
@@ -143,12 +167,23 @@
                     <h2 class="section__title subscribe__title">Subscribe for Our<br>Weekly Updates</h2>
                     <p class="subscribe__description">Subscribe to our weekly notice get upto <br>30% discounts on our products!</p>
 
-                    <form action="" class="subscribe__form">
-                        <input type="text" placeholder="Enter your email" class="subscribe__input">
-                        <button class="button">
-                            Subscribe
-                        </button>
-                    </form>
+                    <form id="subscribe-form" class="subscribe__form" novalidate>
+    <input 
+        type="email" 
+        id="email-input"
+        name="email"
+        placeholder="Enter your email" 
+        class="subscribe__input"
+        required
+        aria-label="Email address"
+        aria-describedby="email-error email-success"
+    >
+    <button type="submit" class="button">
+        Subscribe
+    </button>
+    <p id="email-error" class="subscribe__error" role="alert"></p>
+    <p id="email-success" class="subscribe__success" role="status"></p>
+</form>
                 </div>
             </div>
         </section>
@@ -172,5 +207,49 @@
    <!-- Swiper js -->
    <script src="src/swiper-bundle.min.js"></script>
     <script src="src/index.js"></script>
+    <!-- Email validation script -->
+<script>
+    document.getElementById('subscribe-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const emailInput = document.getElementById('email-input');
+        const errorMsg = document.getElementById('email-error');
+        const successMsg = document.getElementById('email-success');
+        const email = emailInput.value.trim();
+        
+        // Hide previous messages
+        errorMsg.style.display = 'none';
+        successMsg.style.display = 'none';
+        
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!email) {
+            errorMsg.textContent = 'Please enter your email address.';
+            errorMsg.style.display = 'block';
+            emailInput.focus();
+            return;
+        }
+        
+        if (!emailRegex.test(email)) {
+            errorMsg.textContent = 'Please enter a valid email address.';
+            errorMsg.style.display = 'block';
+            emailInput.focus();
+            return;
+        }
+        
+        // Success - In production, this would send to a backend
+        successMsg.textContent = 'Thank you for subscribing! Check your email for confirmation.';
+        successMsg.style.display = 'block';
+        emailInput.value = '';
+        
+        // Optional: Send to backend
+        // fetch('/api/subscribe', {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify({email: email})
+        // });
+    });
+</script>
 </body>
 </html>
