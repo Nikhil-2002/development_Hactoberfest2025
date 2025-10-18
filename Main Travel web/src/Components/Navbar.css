@@ -1,0 +1,147 @@
+/* General Body Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #f4f7f6;
+    color: #333;
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none;
+  }
+  
+  .nav-links a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #3498db;
+  }
+  
+  .signup-btn {
+      background-color: #3498db;
+      color: white !important;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+  }
+  
+  .signup-btn:hover {
+      background-color: #2980b9;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1529655683826-1c5c7769996b?q=80&w=1974&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+  
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cta-button {
+    background-color: #e67e22;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: #d35400;
+  }
+  
+  /* Page Container */
+  .page-container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+  }
+  
+  /* Destinations */
+  .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+  }
+  
+  .destination-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+  }
+  
+  .destination-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  /* Auth Forms */
+  .auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+  }
+  
+  .auth-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+  }
+  
+  .auth-form input {
+      width: 95%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+  }
+  
+  .auth-form button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  }
+  
+  .auth-form button:hover {
+      background-color: #27ae60;
+  }
+  
+
+  

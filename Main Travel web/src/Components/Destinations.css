@@ -1,0 +1,333 @@
+/* Destinations.css */
+/* .destinations-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .hero-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+  }
+  
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .filters-section {
+    margin-bottom: 40px;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid #e0e6ed;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search-bar input:focus {
+    border-color: #667eea;
+  }
+  
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #e0e6ed;
+    background: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .filter-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+  }
+  
+  .filter-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+  }
+  
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .destination-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .destination-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-image-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .destination-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .destination-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .budget-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .card-content {
+    padding: 25px;
+  }
+  
+  .destination-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2d3748;
+  }
+  
+  .destination-description {
+    color: #718096;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .itinerary-section h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #4a5568;
+  }
+  
+  .itinerary-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .itinerary-list li {
+    padding: 5px 0;
+    color: #718096;
+    font-size: 14px;
+    position: relative;
+    padding-left: 15px;
+  }
+  
+  .itinerary-list li:before {
+    content: "•";
+    color: #667eea;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .category-tag {
+    background: #edf2f7;
+    color: #4a5568;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .explore-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+  }
+  
+  .explore-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+  }
+  
+  .no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .destinations-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+    
+    .category-filters {
+      justify-content: center;
+    }
+    
+    .filter-btn {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+    
+    .card-footer {
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+    
+    .explore-btn {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .destinations-container {
+      padding: 15px;
+    }
+    
+    .hero-section {
+      padding: 40px 15px;
+    }
+    
+    .filters-section {
+      padding: 20px;
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+  }
+  .wrapper {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 16px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover { transform: translateY(-4px); }
+  
+  .card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+  .card h3 { margin: 12px 16px 4px; font-size: 1.2rem; }
+  
+  .card p  { margin: 0 16px 12px; color: #555; }
+  
+  .card ul { margin: 0 16px 16px; padding-left: 20px; color: #444; }
+  

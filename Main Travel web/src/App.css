@@ -1,0 +1,22 @@
+.link-base {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: color 0.2s;
+}
+
+.link-active {
+  color: #ea580c;
+  font-weight: 600;
+}
+
+.link-inactive {
+  color: #374151;
+}
+
+.link-inactive:hover {
+  color: #ea580c;
+}
+
+
